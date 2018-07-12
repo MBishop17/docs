@@ -1,6 +1,6 @@
 ---
 title: Overview
-weight: 1
+weight: 2
 ---
 Rancher is a container management platform built for organizations that deploy containers in production. Rancher makes it easy to run Kubernetes everywhere, meet IT requirements, and empower DevOps teams.
 
