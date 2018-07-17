@@ -4,6 +4,8 @@ weight: 3575
 draft: true
 ---
 
+## Adding Cluster Alerts
+
 You can create alerts that monitor the resources in your Kubernetes cluster. When an event occurs that triggers the alert, you'll receive notification about the issue.
 
 For clusters, you can set alerts to monitor:
@@ -12,15 +14,13 @@ For clusters, you can set alerts to monitor:
   - The system services that manage your Kubernetes cluster.
   - The resource events from specific resource types.
 
-After you create an alert, you can edit its settings or toggle it on or off.
-
 >**Tip:** If you want to set alerts for specific pods or workloads in a project, see [Adding and Managing Project Alerts]({{< baseurl >}}/rancher/v2.x/tasks/projects/#adding-project-alerts).
 
-## Prerequisite
+### Prerequisite
 
-You must [add a notifier]({{< baseurl >}}/rancher/v2.x/tasks/clusters/adding-notifiers/), which is the medium that you'll be informed of the alert.
+Before you can receive alerts, you must [add a notifier]({{< baseurl >}}/rancher/v2.x/tasks/clusters/adding-notifiers/), which is the medium that you'll be informed of the alert.
 
-## To Add an Alert
+### To Add an Alert
 
 1. From the **Global** view, open the cluster that you want to configure alerts for.
 
@@ -114,3 +114,14 @@ This alert type monitors for events that occur on any node on marked with a key 
       Select the urgency level of the alert based on its impact on operations. For example, an alert triggered when a node's CPU raises above 60% deems a urgency of **Info**, but a node that is **Not Ready** deems an urgency of **Critical**.
 {{% /accordion %}}
 1. Finally, choose the notifiers send you alerts. If you've configured multiple notifiers, you can receive alerts in multiple mediums.
+
+
+## Managing Cluster Alerts
+
+After you create an alert, you can:
+
+- Delete it
+- Deactivate/Reactive it
+- Edit its settings
+
+To manage alerts, browse to the cluster containing the alert that you want to manage. Select the node you want to manage and perform the desired action. Alternatively, you can perform these actions by clicking the ellipsis icon.
