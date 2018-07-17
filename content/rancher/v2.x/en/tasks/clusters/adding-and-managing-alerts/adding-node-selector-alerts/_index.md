@@ -26,6 +26,6 @@ You can create an alert that notifies you when one of the Kubernetes [Master Com
     - **Warning**: Normal urgency
     - **Info**: Least urgent
 
-    Select the urgency level of the alert based on how many nodes fill the role within your cluster. For example, if you have 5 node cluster, and all 5 nodes run `etcd`, select **Info**. However, if only 1 node in your cluster runs `etcd`, select **Critical**
+    Select the urgency level of the alert based on how many nodes fill the role within your cluster. For example, if you have 5 node cluster, and all 5 nodes run `etcd`, select **Info**. However, if only 1 node in your cluster runs `etcd`, select **Critical**.
 
 1. Finally, choose the notifiers send you alerts. If you've configured multiple notifiers, you can receive alerts in multiple mediums.
