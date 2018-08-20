@@ -1,7 +1,6 @@
 ---
-title: Horitzontal Pod Autoscaler
+title: Horizontal Pod Autoscaler
 weight: 2300
-draft: true
 ---
 
 ---
