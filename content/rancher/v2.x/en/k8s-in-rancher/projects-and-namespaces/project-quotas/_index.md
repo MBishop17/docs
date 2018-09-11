@@ -1,58 +1,59 @@
 ---
-title: Project Quotas
+title: Resource Quotas
 weight: 5000
 ---
-_Project quotas_ are a Rancher feature that limits the resources available to a project.
+_Resource quotas_ are a Rancher feature that limits the resources available to a project or namespace.
 
-In situations where several teams share a cluster, one team may overconsume the resources available. To prevent this overconsumption, you can apply a _project quota_, which creates a pool of resources that the project's namespaces can use, resources being things like data or processing power.
+In situations where several teams share a cluster, one team may overconsume the resources available: CPU, memory, storage, services, Kubernetes objects like pods or secrets, and so on.  To prevent this overconsumption, you can apply a resource quota, which creates a pool of resources that the project's namespaces can use.
 
-## Project Quotas vs. Resource Quotas
+## Rancher Resource Quotas vs. Native Kubernetes Resource Quotas
 
-Project quotas, a feature exclusive to Rancher, work similarly to the Kubernetes feature, [Resource Quotas](https://kubernetes.io/docs/concepts/policy/resource-quotas/). The following table explains the key differences between the two quota types.
+Resource quotas in Rancher work similarly to how they do in the [native version of Kubernetes](https://kubernetes.io/docs/concepts/policy/resource-quotas/). However, Rancher's version of resource quotas have a few key differences from the Kubernetes version. The following table explains the key differences between the two quota types.
 
 
-Project Quotas | Resource Quotas 
----------|----------
- Applied to projects. | Applied to namespaces. 
- Creates resource pool for all namespaces in project. | Applies static resource limits to individual namespaces. 
- Applies resource quotas to namespaces through inheritance. | Apply only to the assigned namespace.
+| Rancher Resource Quotas                                    | Kubernetes Resource Quotas                               |
+| ---------------------------------------------------------- | -------------------------------------------------------- |
+| Applies to projects.                                       | Applies to namespaces.                                   |
+| Creates resource pool for all namespaces in project.       | Applies static resource limits to individual namespaces. |
+| Applies resource quotas to namespaces through inheritance. | Applies only to the assigned namespace.                  |
 
-## Project Quota Resource Pool
+## Resource Quota Types
 
-When you create a project quota, you are configuring the pool of resources available to the project. You can set limits on resources like:
+When you create a resource quota, you are configuring the pool of resources available to the project. You can set the following research limits for each project. Expand the section below to see each resource type available.
 
-- Memory
-- CPU
-- Storage
-- Kubernetes Resources (i.e., Secrets)
 
->**Note:** In the quota, if you set CPU or Memory limit, all containers you create in the namespace must explicitly satisfy the quota. See the [Kubernetes documentation](https://kubernetes.io/docs/concepts/policy/resource-quotas/#requests-vs-limits) for more details.
+{{% accordion id="resource-types" label="Resource Types" %}}
 
-## Quota Templates
+| Resource Type            | Description                                                                                                                                                                                       |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CPU Limit                | The maximum amount of CPU (in [millicores](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/#meaning-of-cpu)) allocated to the project/namespace.<sup>1</sup> |
+| CPU Reservation          | The minimum amount of CPU (in millicores) guaranteed to the project/namespace.<sup>1</sup>                                                                                                        |
+| Memory Limit             | The maximum amount of memory (in bytes) allocated to the project/namespace.<sup>1</sup>                                                                                                           |
+| Memory Reservation       | The minimum amount of memory (in bytes) guaranteed to the project/namespace.<sup>1</sup>                                                                                                          |
+| Storage Reservation      | The minimum amount of storage (in gigabytes) guaranteed to the project/namespace.                                                                                                                 |
+| Services Load Balancers  | The maximum number of load balancers services that can exist in the project/namespace.                                                                                                            |
+| Services Node Ports      | The maximum number of node port services that can exist in the project/namespace.                                                                                                                 |
+| Pods                     | The maximum number of pods that can exist in the project/namespace in a non-terminal state (i.e., pods with a state of `.status.phase in (Failed, Succeeded)` equal to true).                     |
+| Services                 | The maximum number of services that can exist in the project/namespace.                                                                                                                           |
+| ConfigMaps               | The maximum number of ConfigMaps that can exist in the project/namespace.                                                                                                                         |
+| Persistent Volume Claims | The maximum number of persistent volume claims that can exist in the project/namespace.                                                                                                           |
+| Replications Controllers | The maximum number of replication controllers that can exist in the project/namespace.                                                                                                            |
+| Secrets                  | The maximum number of secrets that can exist in the project/namespace.                                                                                                                            |
 
-When a project quota is in effect, the project assigns each namespace a _quota template_, which is a profile that describes what resources are available to the namespace.
+>**<sup>1</sup>** In the quota, if you set CPU or Memory limits, all containers you create in the project/namespace must explicitly satisfy the quota. See the [Kubernetes documentation](https://kubernetes.io/docs/concepts/policy/resource-quotas/#requests-vs-limits) for more details.
 
-When you create a project, you have the option of assigning each namespace one of three quota templates:
+ 
+{{% /accordion %}}
 
-- **Small:** the namespace can access minimal resources.
-- **Medium:** the namespace can access adequate resources.
-- **Large:** the namespace can access performance resources.
+## Quota Project and Namespace Limits
 
-When a project quota is in effect, each namespace must have a quota template assigned to it. You can assign quota templates one of two ways:
+When setting up your resource quotas, you will configure two values: a **Project Limit** and a **Namespace Default Limit**.
 
-- **Inheritance**: Have Rancher apply a quota template automatically.
-- **Direct assignment**: Apply the quota template yourself.
+### Project Limits
 
-## Quota Inheritance
+### Namespace Default Limits
 
-When setting up your project quota, you'll choose a default quota template for the project. Each namespace inherits this quota unless you assign it one directly, which overrides the default. We recommend assigning most quota templates this way.
+
+Each namespace inherits this quota unless you assign it one directly, which overrides the default. We recommend assigning most quota templates this way.
 
 >**Note:** When you apply a project quota, any resource quotas already applied to the project namespaces are replaced with the default quota template.
-
-## Advantages of Project Quotas
-
-Setting up project quotas instead of resource quotas has benefits:
-
-- **Fewer Resource Quota Applications:** Instead of applying resource quotas to multiple namespaces, you can apply a single project quota to the entire project.
-- **Resource Flexibility:** Quota templates allow you to quickly change the resources available for each namespace rather creating a resource quota from scratch.
-- **Quota Template Inheritance:** Resource limits are automatically enforced when the namespace inherits a quote template from the project. Additionally, as new namespaces are created and deleted, the default quota template is automatically applied.
