@@ -13,13 +13,13 @@ Resource quotas in Rancher work similarly to how they do in the [native version 
 
 | Rancher Resource Quotas                                    | Kubernetes Resource Quotas                               |
 | ---------------------------------------------------------- | -------------------------------------------------------- |
-| Applies to projects.                                       | Applies to namespaces.                                   |
+| Applies to projects and namespace.                         | Applies to namespaces only.                              |
 | Creates resource pool for all namespaces in project.       | Applies static resource limits to individual namespaces. |
 | Applies resource quotas to namespaces through inheritance. | Applies only to the assigned namespace.                  |
 
 ## Resource Quota Types
 
-When you create a resource quota, you are configuring the pool of resources available to the project. You can set the following research limits for each project. Expand the section below to see each resource type available.
+When you create a resource quota, you are configuring the pool of resources available to the project. You can set the following ~~resource~~ limits for each project. Expand the section below to see each resource type available.
 
 
 {{% accordion id="resource-types" label="Resource Types" %}}
@@ -40,7 +40,7 @@ When you create a resource quota, you are configuring the pool of resources avai
 | Replications Controllers | The maximum number of replication controllers that can exist in the project/namespace.                                                                                                            |
 | Secrets                  | The maximum number of secrets that can exist in the project/namespace.                                                                                                                            |
 
->**<sup>1</sup>** In the quota, if you set CPU or Memory limits, all containers you create in the project/namespace must explicitly satisfy the quota. See the [Kubernetes documentation](https://kubernetes.io/docs/concepts/policy/resource-quotas/#requests-vs-limits) for more details.
+>**<sup>1</sup>** In the quota, if you set CPU or Memory limits, all containers you create in the project / namespace must explicitly satisfy the quota. See the [Kubernetes documentation](https://kubernetes.io/docs/concepts/policy/resource-quotas/#requests-vs-limits) for more details.
 
  
 {{% /accordion %}}
@@ -51,9 +51,15 @@ When setting up your resource quotas, you will configure two values: a **Project
 
 ### Project Limits
 
+This value is the overall limit for the project. When the overall limit for the project is exceeded, Kubernetes uses logic to determine which namespaces to stop to get back under the quota.
+
 ### Namespace Default Limits
 
+This value is the default resource limit that an individual namespace inherits from the project. If an individual namespace exceeds its namespace limit, Kubernetes stops anything objects in the namespace from operating. 
 
-Each namespace inherits this quota unless you assign it one directly, which overrides the default. We recommend assigning most quota templates this way.
+Each namespace inherits this default limit unless you assign it one directly, which overrides the default.
 
->**Note:** When you apply a project quota, any resource quotas already applied to the project namespaces are replaced with the default quota template.
+### Namespace Default Limit Overrides
+
+Although each namespace in a project inherits the **Namespace Default Limit**, you can also override this setting for specific namespaces that require additional (or fewer) resources.
+
