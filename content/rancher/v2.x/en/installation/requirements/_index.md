@@ -55,6 +55,9 @@ Hardware requirements scale based on the size of your Rancher deployment. Provis
 
 {{% /tab %}}
 {{% tab "Software" %}}
+
+## Docker
+
 A supported version of [Docker](https://www.docker.com/) is required.
 
 Supported Versions:
@@ -68,6 +71,10 @@ If you are using RancherOS, make sure you switch the Docker engine to a supporte
 `sudo ros engine switch docker-17.03.2-ce`
 
 [Docker Documentation: Installation Instructions](https://docs.docker.com/)
+
+## Windows Only: Powershell
+
+All Windows nodes managed by Rancher require [PowerShell 5.0 or later](https://docs.microsoft.com/en-us/powershell/scripting/setup/installing-powershell?view=powershell-6). 
 
 {{% /tab %}}
 {{% tab  "Ports" %}}
