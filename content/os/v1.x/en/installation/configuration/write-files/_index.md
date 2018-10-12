@@ -40,4 +40,8 @@ write_files:
       restrict [::1]
 ```
 
+<<<<<<< HEAD
 > **Note:** Currently, writing files to a specific system service is only supported for RancherOS's built-in services. You are unable to write files to any custom system services. 
+=======
+> Note: Currently only supports built-in services, the custom services are not applicable.
+>>>>>>> Only support built-in services for writing files in specific system services
