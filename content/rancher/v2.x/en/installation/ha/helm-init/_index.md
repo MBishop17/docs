@@ -4,10 +4,17 @@ weight: 195
 ---
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Helm is the package management tool of choice for Kubernetes. Helm "charts" provide templating syntax for Kubernetes YAML manifest documents. With Helm we can create configurable deployments instead of just using static files. For more information about creating your own catalog of deployments, check out the docs at [https://helm.sh/](https://helm.sh/). To be able to use Helm, the server-side component `tiller` needs to be installed on your cluster.
 =======
 Helm is the package management tool of choice for Kubernetes. Helm charts provide templating syntax for Kubernetes YAML manifest documents. With Helm we can create configurable deployments instead of just using static files. For more information about creating your own catalog of deployments, check out the docs at [https://helm.sh/](https://helm.sh/).  To be able to use Helm, the server-side component `tiller` needs to be installed on your cluster.
 >>>>>>> Cleanup helm/tiller + added verification steps for helm/tiller
+=======
+Helm is the package management tool of choice for Kubernetes. Helm charts provide templating syntax for Kubernetes YAML manifest documents. With Helm we can create configurable deployments instead of just using static files. For more information about creating your own catalog of deployments, check out the docs at [https://helm.sh/](https://helm.sh/).  To be able to use Helm, the server-side component `tiller` needs to be installed on your cluster.
+=======
+Helm is the package management tool of choice for Kubernetes. Helm "charts" provide templating syntax for Kubernetes YAML manifest documents. With Helm we can create configurable deployments instead of just using static files. For more information about creating your own catalog of deployments, check out the docs at [https://helm.sh/](https://helm.sh/). To be able to use Helm, the server-side component `tiller` needs to be installed on your cluster.
+>>>>>>> Fix diff/rebase lines
+>>>>>>> Fix diff/rebase lines
 
 > **Note:** For systems without direct internet access see [Helm - Air Gap]({{< baseurl >}}/rancher/v2.x/en/installation/air-gap-installation/install-rancher/#helm) for install details.
 
@@ -17,11 +24,17 @@ Helm installs the `tiller` service on your cluster to manage charts. Since RKE e
 
 * Create the `ServiceAccount` in the `kube-system` namespace.
 <<<<<<< HEAD
+<<<<<<< HEAD
 * Create the `ClusterRoleBinding` to give the `tiller` service account access to the cluster.
 * Finally use `helm` to initialize the `tiller` service
 
 =======
+=======
+>>>>>>> Fix diff/rebase lines
 * Create the `ClusterRoleBinding` to give the `tiller` account access to the cluster.
+=======
+* Create the `ClusterRoleBinding` to give the `tiller` service account access to the cluster.
+>>>>>>> Fix diff/rebase lines
 * Finally use `helm` to install the `tiller` service
 >>>>>>> Cleanup helm/tiller + added verification steps for helm/tiller
 
