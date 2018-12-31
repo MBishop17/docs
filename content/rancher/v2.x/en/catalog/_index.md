@@ -24,7 +24,8 @@ Rancher improves on Helm catalogs and charts. All native Helm charts can work wi
 Within Rancher, there are default catalogs packaged as part of Rancher. These can be enabled or disabled by an administrator.
 
 1. From the **Global** view, choose **Catalogs** from the main menu.
-2. Toggle the default catalogs that you want use to a setting of **Enabled**.
+
+1. Toggle the default catalogs that you want use to a setting of **Enabled**.
 
     - **Library**
 
@@ -34,7 +35,7 @@ Within Rancher, there are default catalogs packaged as part of Rancher. These ca
 
     - **Helm Stable**
 
-    	This catalog, , which is maintained by the Kubernetes community, includes native [Helm charts](https://github.com/kubernetes/helm/blob/master/docs/chart_template_guide/getting_started.md). This catalog features the largest pool of apps.
+    	This catalog, which is maintained by the Kubernetes community, includes native [Helm charts](https://github.com/kubernetes/helm/blob/master/docs/chart_template_guide/getting_started.md). This catalog features the largest pool of apps.
 
     - **Helm Incubator**
 
@@ -44,15 +45,19 @@ Within Rancher, there are default catalogs packaged as part of Rancher. These ca
 
 ## Adding Custom Catalogs
 
-Adding a catalog is as simple as adding a catalog name, a URL and a branch name. The URL needs to be one that `git clone` [can handle](https://git-scm.com/docs/git-clone#_git_urls_a_id_urls_a) and must end in `.git`. The branch name must be a branch that is in your catalog URL. If no branch name is provided, it will use the `master` branch by default. Whenever you add a catalog to Rancher, it will be available immediately.
+Adding a catalog is as simple as adding a catalog name, a URL and a branch name. The URL must either:
 
->**Notes:**
+- Be one that `git clone` [can handle](https://git-scm.com/docs/git-clone#_git_urls_a_id_urls_a) and must end in `.git`. 
+- Be a Helm Charts server URL. See [Helm Documentation: Hosting Chart Repositories](https://docs.helm.sh/developing_charts/#hosting-chart-repositories) for more info.
+
+>**Using v2.1.0 or Earlier?**
 >
->- Currently, you can only add custom catalogs to Rancher at the global level. Therefore, any catalog that you add is shared with all clusters and projects.
+> A couple of caveats for these releases:
 >
->- Currently, only unauthenticated catalogs are supported.
+>- Custom catalogs can only be added at the global level. Therefore, any catalog that you add is shared with all clusters and projects.
+>- Only unauthenticated catalogs are supported.
 <br/>
-<br/>
+
 
 <!--There are two types of catalogs that can be added into Rancher. There are global catalogs and project catalogs. In a global catalog, the catalog templates are available in *all* projects. In a project catalog, the catalog charts are only available in the project that the catalog is added to.
 
@@ -61,11 +66,28 @@ An [admin]({{< baseurl >}}/rancher/v2.x/en/admin-settings/#global-Permissions) o
 NEEDS TO BE FIXED FOR 2.0: Any [users]({{site.baseurl}}/rancher/{{page.version}}/{{page.lang}}/configuration/accounts/#account-types) of a Rancher environment has the ability to add or remove environment catalogs in their respective Rancher environment in **Catalog** -> **Manage**.
  -->
 
- 1. From the **Global** view, choose **Catalogs** from the main menu.
- 2. Click **Add Catalog**.
- 3. Complete the form and click **Create**.
+1. Using the **Context Menu**, browse to the Rancher object that you want accessible to your custom catalog.
 
- **Result**: Your catalog is added to Rancher.
+    - To create a custom catalog accessible to all Rancher-managed clusters, stay at the global view.
+    - To create a custom catalog accessible to a cluster or project, browse to that object.
+
+1. From the main menu, select **Catalogs**. 
+
+    **Exception:** If you want to create a custom catalog for a _project_, choose **Catalog Apps** instead. Then click **Manage Catalogs**.
+
+1. Click **Add Catalog**.
+
+1. Complete the form and click **Create**. 
+
+    Field | Description
+    ------|------------
+    Name  | A name for your custom catalog.
+    Catalog URL | The URL of your custom catalog.
+    Use private catalog | If your custom catalog is password protected, select this option and enter credentials that authenticate.
+    Branch | The name of the branch you want to use for your custom catalog. The branch name must be available in your catalog URL. If no branch name is provided, `master` is used by default. 
+    Scope | The scope at which your custom catalog is available for use: global, cluster, or project. The options available in this drop-down change according to context—from the global context, you can only set the context to global. However, from a cluster or project, the drop-down includes options for expanding the scope.<br/><br/>**Note:** After you click **Create**, you can't change the scope of the catalog.
+
+**Result**: Your catalog is added to Rancher. It will take a few minutes to synchronize the helm charts.
 
 ## Launching Catalog Applications
 

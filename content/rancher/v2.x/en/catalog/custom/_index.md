@@ -7,6 +7,20 @@ aliases:
 
 Rancher's catalog service requires any custom catalogs to be structured in a specific format for the catalog service to be able to leverage it in Rancher. Any custom catalog must be a public Git repository. The URL needs to be one that `git clone` [can handle](https://git-scm.com/docs/git-clone#_git_urls_a_id_urls_a) and must end in `.git`.
 
+## In This Document
+
+<!-- TOC -->
+
+- [In This Document](#in-this-document)
+- [Chart Types](#chart-types)
+- [Chart Directory Structure](#chart-directory-structure)
+- [Rancher Chart Additional Files](#rancher-chart-additional-files)
+
+    - [Question Variable Reference](#question-variable-reference)
+- [Example Custom Chart Creation](#example-custom-chart-creation)
+
+<!-- /TOC -->
+
 ## Chart Types
 
 Rancher supports two different types of charts:
